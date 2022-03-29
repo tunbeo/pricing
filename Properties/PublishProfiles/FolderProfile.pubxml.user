@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\tuantran\Source\Repos\ADGApp\PricingService\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2022-03-27T17:35:18.7704416Z;True|2022-03-28T00:19:48.4124430+07:00;True|2022-02-09T00:15:19.5031473+07:00;True|2022-01-27T08:53:46.1291981+07:00;True|2022-01-20T18:08:48.6958940+07:00;True|2022-01-20T08:34:15.7484845+07:00;True|2022-01-20T08:14:08.0301829+07:00;True|2022-01-19T10:29:01.9792283+07:00;True|2022-01-19T09:56:27.5967398+07:00;True|2022-01-18T14:49:46.4991857+07:00;</History>
+  </PropertyGroup>
+</Project>
