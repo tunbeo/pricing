@@ -7,17 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Aspose.Cells">
+      <HintPath>_dll\Aspose.Cells.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel">
       <HintPath>_dll\Microsoft.Office.Interop.Excel.dll</HintPath>
     </Reference>
     <Reference Include="office">
       <HintPath>_dll\OFFICE.DLL</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

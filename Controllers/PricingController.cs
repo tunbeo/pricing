@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace PricingService.Controllers
 {
@@ -11,6 +12,12 @@ namespace PricingService.Controllers
         {
             var query = Request.QueryString.ToString();
             return ExcelCalculator.Calculate(query);
+        }
+
+        [HttpGet("pricing-excel")]
+        public Models.PriceResponse PricingExcel([FromQuery] string request)
+        {
+            return ExcelCalculator.CalculatePrice(request);
         }
     }
 }

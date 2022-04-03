@@ -16,7 +16,7 @@
         //public string? i_HinhThai { get; set; }
         //public string? i_ThueXK { get; set; }
         //Output
-        
+
         //pp1
         public string? LoaiVatLieu { get; set; }
         public string? SheetName { get; set; }
@@ -24,7 +24,7 @@
         public string? SoKg { get; set; }
         public string? HaoPhiMachCat { get; set; }
         public string? PhiGiaCong { get; set; }
-        public string? DonGia {get; set; }
+        public string? DonGia { get; set; }
         public string? DonGiaTheoTSLN { get; set; }
         public string? ThanhTienTheoTSLN { get; set; }
 
@@ -37,6 +37,9 @@
 
         //vietstar
 
+        // _ppt3
+        public string? DonGiaTheoTyGiaMuaVietCombank { get; set; }
+        public string? DonGiaTheoTyGiaBanVietCombank { get; set; }
 
         public string? Message { get; set; }
     }
