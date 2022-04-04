@@ -5,6 +5,7 @@ namespace PricingService.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class PricingController : ControllerBase
     {
         //[HttpGet]
