@@ -390,13 +390,13 @@ namespace PricingService
             var parsed = System.Web.HttpUtility.ParseQueryString(request);
             folder = parsed["date"];
             //folder = "Excels";
-            rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
-            //rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
+            //rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
+            rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
             fileName = parsed["file"];
             if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
             {
-                filePath = Path.Combine(rootFolder + folder, fileName);
-                //filePath = Path.Combine(rootFolder, fileName);
+                //filePath = Path.Combine(rootFolder + folder, fileName);
+                filePath = Path.Combine(rootFolder, fileName);
             }
             Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
             string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U;
@@ -616,14 +616,14 @@ namespace PricingService
                                 var s = parsed["from"];
                                 var w = Models.ApiParamenter.GetApiParamenterLocation(s);
                                 var formula = "";
-                                var sumFor = $"=IF(D{_i + 1},120%,100%)*E{_i + 1}";
+                                var sumFor = $"=IF(D{_i},120%,100%)*E{_i}";
                                 if (w == "Formular HCM")
                                 {
-                                    formula = $"=INDEX($B$14:$J$20,MATCH(IF(C{_i + 1}>2,2,C{_i + 1}),$A$14:$A$20,1),MATCH(B{_i + 1},$B$13:$J$13,1))+IF(C{_i + 1}>2,ROUNDUP((C{_i + 1}-2)/0.5,0)*HLOOKUP(B{_i + 1},$B$13:$J$21,9,FALSE),0)";
+                                    formula = $"=INDEX($B$14:$J$20,MATCH(IF(C{_i}>2,2,C{_i}),$A$14:$A$20,1),MATCH(B{_i},$B$13:$J$13,1))+IF(C{_i}>2,ROUNDUP((C{_i}-2)/0.5,0)*HLOOKUP(B{_i},$B$13:$J$21,9,FALSE),0)";
                                 }
                                 else
                                 {
-                                    formula = $"=INDEX($B$3:$J$9,MATCH(IF(C{_i + 1}>2,2,C{_i + 1}),$A$3:$A$9,1),MATCH(B{_i + 1},$B$2:$J$2,1))+IF(C{_i + 1}>2,ROUNDUP((C{_i + 1}-2)/0.5,0)*HLOOKUP(B{_i + 1},$B$2:$J$10,9,FALSE),0)";
+                                    formula = $"=INDEX($B$3:$J$9,MATCH(IF(C{_i}>2,2,C{_i}),$A$3:$A$9,1),MATCH(B{_i},$B$2:$J$2,1))+IF(C{_i}>2,ROUNDUP((C{_i}-2)/0.5,0)*HLOOKUP(B{_i},$B$2:$J$10,9,FALSE),0)";
                                 }
                                 worksheet.Cells[A].PutValue(w);
                                 worksheet.Cells[B].PutValue(parsed["b"]);

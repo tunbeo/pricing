@@ -9,10 +9,10 @@ namespace PricingService.Controllers
     public class PricingController : ControllerBase
     { 
         [HttpGet]
-        public string Get()
+        public Models.PriceResponse Get()
         {
             var query = Request.QueryString.ToString();
-            return JsonConvert.SerializeObject(ExcelCalculator.CalculatePrice(query));
+            return ExcelCalculator.CalculatePrice(query);
         }
     }
 }
