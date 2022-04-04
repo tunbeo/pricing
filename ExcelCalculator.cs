@@ -390,7 +390,7 @@ namespace PricingService
             var parsed = System.Web.HttpUtility.ParseQueryString(request);
             folder = parsed["date"];
             //folder = "Excels";
-            rootFolder = "C:\\inetpub\\wwwroot\\pricing\banggia\\";
+            rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
             //rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
             fileName = parsed["file"];
             if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
