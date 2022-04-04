@@ -12,7 +12,11 @@ namespace PricingService.Controllers
         public string Get()
         {
             var query = Request.QueryString.ToString();
-            return JsonConvert.SerializeObject(ExcelCalculator.CalculatePrice(query));
+            return JsonConvert.SerializeObject(ExcelCalculator.CalculatePrice(query), Newtonsoft.Json.Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
         }
     }
 }
