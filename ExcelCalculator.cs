@@ -15,6 +15,7 @@ namespace PricingService
         public static string Calculate(string query)
         {
             string rootPath = "C:\\inetpub\\wwwroot\\Pricing\\BangGia\\";
+
             string path = Directory.GetCurrentDirectory() + "\\Excels\\_pp1_sale.xlsx";  //"C:\\inetpub\\wwwroot\\Pricing\\BangGia\\2021-12-21 10-07\\pp1_sale.xlsx";
             //Application xlApp = null;// = new Application();
             SpreadsheetDocument document = null;
@@ -513,11 +514,12 @@ namespace PricingService
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                             item.Cells[B].PutValue(w);
+                                            var d12 = parsed["d"];
                                             item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
                                             item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
                                             item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
                                             item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
-                                            item.Cells[H].PutValue(Convert.ToInt16(parsed["h"]));
+                                            item.Cells[H].PutValue(Convert.ToDouble(parsed["h"]));
                                             item.Cells[I].PutValue(parsed["i"]);
                                             item.Cells[J].PutValue(parsed["j"]);
                                             item.Cells[K].PutValue(parsed["k"]);
