@@ -1,19 +1,11 @@
 {
   "Version": 1,
-  "Hash": "XG/hqVBPd1e7mtGjNWnq0repHInusRbf/GZ26X8xiC8=",
+  "Hash": "qc0/poWs1z4JOYaHzVn73CPYSNZWVaWsp9HaJduo1TI=",
   "Source": "PricingService",
   "BasePath": "_content/PricingService",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "PricingService\\wwwroot",
-      "Source": "PricingService",
-      "ContentRoot": "D:\\Z\\Excel\\pricing\\wwwroot\\",
-      "BasePath": "_content/PricingService",
-      "Pattern": "**"
-    }
-  ],
+  "DiscoveryPatterns": [],
   "Assets": []
 }
