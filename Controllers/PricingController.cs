@@ -3,12 +3,11 @@ using Newtonsoft.Json;
 
 namespace PricingService.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
+   
     public class PricingController : ControllerBase
     {       
-        
-
         [HttpGet]
         public Models.PriceResponse PricingExcel([FromQuery] string request)
         {
