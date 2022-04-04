@@ -1,0 +1,9 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/FontEnd/Web/obj
+/BackEnd/package-lock.json
+/bin/
+/obj/

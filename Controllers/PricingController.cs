@@ -7,11 +7,12 @@ namespace PricingService.Controllers
     [Route("[controller]")]
    
     public class PricingController : ControllerBase
-    {       
+    { 
         [HttpGet]
-        public Models.PriceResponse PricingExcel([FromQuery] string request)
+        public string Get()
         {
-            return ExcelCalculator.CalculatePrice(request);
+            var query = Request.QueryString.ToString();
+            return JsonConvert.SerializeObject(ExcelCalculator.CalculatePrice(query));
         }
     }
 }
