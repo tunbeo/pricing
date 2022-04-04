@@ -5,6 +5,7 @@ using System.Data;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace PricingService
 {
@@ -498,12 +499,11 @@ namespace PricingService
 #pragma warning disable CS0168
         public static string CalculatePrice(string request)
         {
-            var returnValue = new Models.PriceResponse
-            {
-                Message = "OK"
-            };
+            var returnValue = new Models.PriceResponse();
+            returnValue.Message = "OK";
+            
             string folder = "", fileName = "", filePath = "", rootFolder = "";
-            int rowData = 0;
+            int rowData = 12;
             var parsed = System.Web.HttpUtility.ParseQueryString(request);
             folder = parsed["date"];
             //folder = "Excels";
@@ -543,7 +543,7 @@ namespace PricingService
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
                                         if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
                                         {
-                                            rowData = _i;
+                                            rowData = 12;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                             item.Cells[B].PutValue(w);
@@ -551,7 +551,7 @@ namespace PricingService
                                             item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
                                             item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
                                             item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
-                                            item.Cells[H].PutValue(Convert.ToDouble(parsed["h"]));
+                                            item.Cells[H].PutValue(Convert.ToInt16(parsed["h"]));
                                             item.Cells[I].PutValue(parsed["i"]);
                                             item.Cells[J].PutValue(parsed["j"]);
                                             item.Cells[K].PutValue(parsed["k"]);
@@ -559,7 +559,7 @@ namespace PricingService
                                             break;
                                         }
                                     }
-                                    workbook.Save(filePath);
+                                    //workbook.Save(filePath);
                                     returnValue.Message = "OK";
                                     returnValue.Input = $"Dày (mm): {parsed["e"]}; Rộng (mm): {parsed["f"]}; Dài (mm): {parsed["g"]}; Số pcs: {parsed["h"]}; Giá vốn nguyên tấm: {parsed["d"]}; TSLN: {parsed["s"]};";
                                     returnValue.LoaiVatLieu = Models.ApiParamenter.GetApiParamenterMaterial(parsed["sheet"]);
@@ -581,7 +581,7 @@ namespace PricingService
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
                                         if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
                                         {
-                                            rowData = _i;
+                                            rowData = 12;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                             item.Cells[B].PutValue(w);
@@ -631,7 +631,7 @@ namespace PricingService
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
                                         if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
                                         {
-                                            rowData = _i;
+                                            rowData = 12;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                             item.Cells[B].PutValue(w);
@@ -729,7 +729,7 @@ namespace PricingService
                             O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
                             if (string.IsNullOrEmpty(worksheet.Cells[A]?.Value?.ToString()))
                             {
-                                rowData = _i;
+                                rowData = 12;
                                 var s = parsed["from"];
                                 var w = Models.ApiParamenter.GetApiParamenterLocation(s);
                                 var formula = "";
@@ -766,14 +766,34 @@ namespace PricingService
             {
                 returnValue.Message = ex.Message;
             }
-            var ret = JsonConvert.SerializeObject(returnValue, Newtonsoft.Json.Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
+            
 
-            return ret;
+            string json = JsonConvert.SerializeObject(returnValue, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+
+            //json = json.Replace("\"{", "{").Replace("}\"", "}");
+            //json = json.Replace("\\","");
+
+            //this.Context.Response.ContentType = "application/json; charset=utf-8";
+            //string jsonString = json.Replace(@"\", " ");
+            json = json.Replace(@"\""", @"""");
+            return json;
         }
+
+        private static string SanitizeReceivedJson(string uglyJson)
+        {
+            var sb = new StringBuilder(uglyJson);
+            sb.Replace("\\\t", "\t");
+            sb.Replace("\\\n", "\n");
+            sb.Replace("\\\r", "\r");
+            sb.Replace("\\", "");
+            sb.Replace("\"{", "{").Replace("}\"", "}");
+            return sb.ToString();
+        }
+
     }
 }
 

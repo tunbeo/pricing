@@ -4,18 +4,7 @@
     {
         //Input
         public string? Input { get; set; }
-        //public string? i_Day { get; set; }
-        //public string? i_Rong { get; set; }
-        //public string? i_Dai { get; set; }
-        //public string? i_GiaVonNguyenTam { get; set; }
-        //public string? i_SoPcs { get; set; }
-        //public string? i_TSLN { get; set; }
-        //public string? i_CongNo { get; set; }
-        //public string? i_VanPhi { get; set; }
-        //public string? i_PhiHQ { get; set; }
-        //public string? i_HinhThai { get; set; }
-        //public string? i_ThueXK { get; set; }
-        //Output
+        
 
         //pp1
         public string? LoaiVatLieu { get; set; }
