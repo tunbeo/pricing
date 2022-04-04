@@ -449,7 +449,7 @@ namespace PricingService
         /// <param name="sheetData"></param>
         /// <param name="cellAddress"></param>
         /// <returns></returns>
-        #pragma warning disable CS8603
+#pragma warning disable CS8603
         public static Cell GetCell(SheetData sheetData, string cellAddress)
         {
             uint rowIndex = uint.Parse(Regex.Match(cellAddress, @"[0-9]+").Value);
@@ -496,7 +496,7 @@ namespace PricingService
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 #pragma warning disable CS0168
-        public static Models.PriceResponse CalculatePrice(string request)
+        public static string CalculatePrice(string request)
         {
             var returnValue = new Models.PriceResponse
             {
@@ -766,14 +766,13 @@ namespace PricingService
             {
                 returnValue.Message = ex.Message;
             }
-            //var ret = JsonConvert.SerializeObject(returnValue, Newtonsoft.Json.Formatting.None,
-            //                new JsonSerializerSettings
-            //                {
-            //                    NullValueHandling = NullValueHandling.Ignore
-            //                });
+            var ret = JsonConvert.SerializeObject(returnValue, Newtonsoft.Json.Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
 
-            //return ret;
-            return returnValue;
+            return ret;
         }
     }
 }

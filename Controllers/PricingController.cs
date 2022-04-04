@@ -9,7 +9,7 @@ namespace PricingService.Controllers
     public class PricingController : ControllerBase
     { 
         [HttpGet]
-        public Models.PriceResponse Get()
+        public string Get()
         {
             var query = Request.QueryString.ToString();
             return ExcelCalculator.CalculatePrice(query);
