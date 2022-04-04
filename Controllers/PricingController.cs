@@ -13,6 +13,7 @@ namespace PricingService.Controllers
         {
             var query = Request.QueryString.ToString();
             return (ExcelCalculator.CalculatePrice(query));
+            //return ExcelCalculator.Calculate(query);
         }
     }
 }
