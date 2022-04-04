@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 namespace PricingService.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("[controller]")]
-   
     public class PricingController : ControllerBase
     { 
         [HttpGet]
