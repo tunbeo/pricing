@@ -14,6 +14,7 @@ namespace PricingService
 #pragma warning disable CS8602
 #pragma warning disable CS8604
 #pragma warning disable CA1416
+#pragma warning disable CS0219
         public static string Calculate(string query)
         {
             string rootPath = "C:\\inetpub\\wwwroot\\Pricing\\BangGia\\";
@@ -448,6 +449,7 @@ namespace PricingService
         /// <param name="sheetData"></param>
         /// <param name="cellAddress"></param>
         /// <returns></returns>
+#pragma warning disable CS8603
         public static Cell GetCell(SheetData sheetData, string cellAddress)
         {
             uint rowIndex = uint.Parse(Regex.Match(cellAddress, @"[0-9]+").Value);
@@ -731,14 +733,14 @@ namespace PricingService
                                 var s = parsed["from"];
                                 var w = Models.ApiParamenter.GetApiParamenterLocation(s);
                                 var formula = "";
-                                var sumFor = $"=IF(D{_i + 1},120%,100%)*E{_i + 1}";
+                                var sumFor = $"=IF(D{_i},120%,100%)*E{_i}";
                                 if (w == "Formular HCM")
                                 {
-                                    formula = $"=INDEX($B$14:$J$20,MATCH(IF(C{_i + 1}>2,2,C{_i + 1}),$A$14:$A$20,1),MATCH(B{_i + 1},$B$13:$J$13,1))+IF(C{_i + 1}>2,ROUNDUP((C{_i + 1}-2)/0.5,0)*HLOOKUP(B{_i + 1},$B$13:$J$21,9,FALSE),0)";
+                                    formula = $"=INDEX($B$14:$J$20,MATCH(IF(C{_i}>2,2,C{_i}),$A$14:$A$20,1),MATCH(B{_i},$B$13:$J$13,1))+IF(C{_i}>2,ROUNDUP((C{_i}-2)/0.5,0)*HLOOKUP(B{_i},$B$13:$J$21,9,FALSE),0)";
                                 }
                                 else
                                 {
-                                    formula = $"=INDEX($B$3:$J$9,MATCH(IF(C{_i + 1}>2,2,C{_i + 1}),$A$3:$A$9,1),MATCH(B{_i + 1},$B$2:$J$2,1))+IF(C{_i + 1}>2,ROUNDUP((C{_i + 1}-2)/0.5,0)*HLOOKUP(B{_i + 1},$B$2:$J$10,9,FALSE),0)";
+                                    formula = $"=INDEX($B$3:$J$9,MATCH(IF(C{_i}>2,2,C{_i}),$A$3:$A$9,1),MATCH(B{_i},$B$2:$J$2,1))+IF(C{_i}>2,ROUNDUP((C{_i}-2)/0.5,0)*HLOOKUP(B{_i},$B$2:$J$10,9,FALSE),0)";
                                 }
                                 worksheet.Cells[A].PutValue(w);
                                 worksheet.Cells[B].PutValue(parsed["b"]);
