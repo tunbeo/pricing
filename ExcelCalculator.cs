@@ -379,7 +379,7 @@ namespace PricingService
 #pragma warning disable CS8600
 #pragma warning disable CS8604
 #pragma warning disable CS0168
-        public static Models.PriceResponse CalculatePrice(string request)
+        public static string CalculatePrice(string request)
         {
             var returnValue = new Models.PriceResponse
             {
@@ -649,7 +649,13 @@ namespace PricingService
             {
                 returnValue.Message = ex.Message;
             }
-            return returnValue;
+            var ret = JsonConvert.SerializeObject(returnValue, Newtonsoft.Json.Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+
+            return ret;
         }
     }
 }

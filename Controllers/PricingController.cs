@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace PricingService.Controllers
 {
     [ApiController]
-    [Produces("application/json")]
+    
     [Route("[controller]")]
     public class PricingController : ControllerBase
     { 
@@ -12,11 +12,7 @@ namespace PricingService.Controllers
         public string Get()
         {
             var query = Request.QueryString.ToString();
-            return JsonConvert.SerializeObject(ExcelCalculator.CalculatePrice(query), Newtonsoft.Json.Formatting.None,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
+            return (ExcelCalculator.CalculatePrice(query));
         }
     }
 }
