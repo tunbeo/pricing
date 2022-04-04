@@ -11,11 +11,7 @@ namespace PricingService
 {
     public static class ExcelCalculator
     {
-#pragma warning disable CS8600
-#pragma warning disable CS8602
-#pragma warning disable CS8604
-#pragma warning disable CA1416
-#pragma warning disable CS0219
+
         public static string Calculate(string query)
         {
             string rootPath = "C:\\inetpub\\wwwroot\\Pricing\\BangGia\\";
@@ -317,9 +313,7 @@ namespace PricingService
 
                 if (!error)
                 {
-                    priceResponse.Message = "OK";
-
-                    //xlApp.Calculate();
+                    priceResponse.Message = "OK";                  
 
 
                     priceResponse.SheetName = sheetName;
@@ -391,31 +385,7 @@ namespace PricingService
                     NullValueHandling = NullValueHandling.Ignore
                 });
 
-                //if (wb != null)
-                //{
-                //    GC.Collect();
-                //    GC.WaitForPendingFinalizers();
-
-                //    wb.Close(false);
-                //    Marshal.ReleaseComObject(wb);
-                //    Marshal.ReleaseComObject(wbs);
-                //    Marshal.ReleaseComObject(wSheet);
-
-
-                //}
-
-
-                //if (xlApp != null)
-                //    xlApp.Quit();
-
-
-                //wb = null;
-                //wbs = null;
-                //wSheet = null;
-                //xlApp = null;
-
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+                
 
                 return json;
 
@@ -423,8 +393,7 @@ namespace PricingService
 
             catch (Exception ex)
             {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+                
                 priceResponse.Message = ex.Message;
 
                 string json = JsonConvert.SerializeObject(priceResponse, Formatting.Indented);
@@ -437,8 +406,7 @@ namespace PricingService
                 //Marshal.ReleaseComObject(wb);
                 //Marshal.ReleaseComObject(wbs);
                 //Marshal.ReleaseComObject(wSheet);
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+                
 
                 return json;
             }
@@ -450,7 +418,7 @@ namespace PricingService
         /// <param name="sheetData"></param>
         /// <param name="cellAddress"></param>
         /// <returns></returns>
-#pragma warning disable CS8603
+
         public static Cell GetCell(SheetData sheetData, string cellAddress)
         {
             uint rowIndex = uint.Parse(Regex.Match(cellAddress, @"[0-9]+").Value);
@@ -494,9 +462,7 @@ namespace PricingService
             return value;
         }
 
-#pragma warning disable CS8600
-#pragma warning disable CS8604
-#pragma warning disable CS0168
+
         public static string CalculatePrice(string request)
         {
             var returnValue = new Models.PriceResponse();

@@ -12,7 +12,8 @@ namespace PricingService.Controllers
         public string Get()
         {
             var query = Request.QueryString.ToString();
-            return ExcelCalculator.CalculatePrice(query);
+            //return ExcelCalculator.CalculatePrice(query);
+            return ExcelCalculator.Calculate(query);
         }
     }
 }
