@@ -697,7 +697,7 @@ namespace PricingService
                             O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
                             if (string.IsNullOrEmpty(worksheet.Cells[A]?.Value?.ToString()))
                             {
-                                rowData = 12;
+                                rowData = 24;
                                 var s = parsed["from"];
                                 var w = Models.ApiParamenter.GetApiParamenterLocation(s);
                                 var formula = "";
