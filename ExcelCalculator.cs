@@ -503,30 +503,49 @@ namespace PricingService
                             {
                                 if (sheetName.ToLower().Contains("hàng tấm"))
                                 {
-                                    for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
-                                    {
+                                    //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
+                                    //{
+                                    int _i = 12;
                                         A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
                                         H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        {
-                                            rowData = 12;
+                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                        //{
+                                            rowData = _i;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                             item.Cells[B].PutValue(w);
                                             var d12 = parsed["d"];
                                             item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
+
+                                            var e12 = parsed["e"];
                                             item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
+
+                                            var f12 = parsed["f"];
                                             item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
+
+                                            var g12 = parsed["g"];
                                             item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
+
+                                            var h12 = parsed["h"];
                                             item.Cells[H].PutValue(Convert.ToDouble(parsed["h"]));
+
+                                            var i12 = parsed["i"];
                                             item.Cells[I].PutValue(parsed["i"]);
+
+                                            var j12 = parsed["j"];
                                             item.Cells[J].PutValue(parsed["j"]);
+
+                                            var k12 = parsed["k"];
                                             item.Cells[K].PutValue(parsed["k"]);
+
+                                            var s12 = parsed["s"];
+                                            item.Cells[S].PutValue(parsed["s"]);
+
                                             workbook.CalculateFormula();
-                                            break;
-                                        }
-                                    }
+                                            //break;
+                                        //}
+                                    //}
                                     //workbook.Save(filePath);
                                     returnValue.Message = "OK";
                                     returnValue.Input = $"Dày (mm): {parsed["e"]}; Rộng (mm): {parsed["f"]}; Dài (mm): {parsed["g"]}; Số pcs: {parsed["h"]}; Giá vốn nguyên tấm: {parsed["d"]}; TSLN: {parsed["s"]};";
@@ -542,13 +561,14 @@ namespace PricingService
                                 }
                                 else if (sheetName.ToLower().Contains("hàng thanh"))
                                 {
-                                    for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
-                                    {
-                                        A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
+                                    int _i = 12;
+                                    //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
+                                    //{
+                                    A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
                                         H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        {
+                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                        //{
                                             rowData = 12;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
@@ -573,10 +593,11 @@ namespace PricingService
                                             item.Cells[J].PutValue(parsed["i"]);
                                             item.Cells[K].PutValue(parsed["j"]);
                                             item.Cells[L].PutValue(parsed["k"]);
+                                            item.Cells[T].PutValue(parsed["s"]);
                                             workbook.CalculateFormula();
-                                            break;
-                                        }
-                                    }
+                                            //break;
+                                        //}
+                                    //}
 
                                     //workbook.Save(filePath);
                                     returnValue.Message = "OK";
@@ -592,13 +613,14 @@ namespace PricingService
                                 }
                                 else if (sheetName.ToLower().Contains("hàng cuộn"))
                                 {
-                                    for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
-                                    {
+                                    int _i = 12;
+                                    //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
+                                    //{
                                         A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
                                         H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
                                         O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        {
+                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                        //{
                                             rowData = 12;
                                             var s = parsed["sheet"];
                                             var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
@@ -609,11 +631,12 @@ namespace PricingService
                                             item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
                                             item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
                                             item.Cells[H].PutValue(parsed["h"]);
+                                            item.Cells[N].PutValue(parsed["n"]);
                                             item.Cells[I].PutValue(parsed["i"]);
-                                            workbook.CalculateFormula();
-                                            break;
-                                        }
-                                    }
+                                        workbook.CalculateFormula();
+                                            //break;
+                                        //}
+                                    //}
                                     //workbook.Save(filePath);
                                     returnValue.Message = "OK";
                                     returnValue.Input = $"Dày (mm): {parsed["d"]}; Rộng (mm): {parsed["e"]}; Dài (mm): ; Số pcs: {parsed["f"]}; Giá vốn nguyên tấm: {parsed["c"]}; TSLN: {parsed["n"]};";
