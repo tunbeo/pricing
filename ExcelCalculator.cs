@@ -675,6 +675,7 @@ namespace PricingService
                         returnValue.Message = "OK";
                         returnValue.Input = $"Product: {parsed["k"]}; Square: {parsed["l"]}; Pcs: {parsed["o"]};";
                         returnValue.SheetName = worksheet.Name;
+                        //cho nay bi sai
                         var k7 = worksheet.Cells["K7"]?.Value?.ToString();
                         var k10 = worksheet.Cells["K10"]?.Value?.ToString();
                         var m7 = worksheet.Cells["M7"]?.Value?.ToString();
