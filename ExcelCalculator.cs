@@ -663,18 +663,22 @@ namespace PricingService
                             if (worksheet.Cells[A]?.Value?.ToString() == parsed["k"])
                             {
                                 worksheet.Cells["K4"].PutValue(parsed["k"]);
-                                worksheet.Cells["L4"].PutValue(parsed["o"]);
+                                worksheet.Cells["L4"].PutValue(parsed["l"]);
                                 worksheet.Cells["M4"].PutValue(worksheet.Cells[C]?.Value);
                                 worksheet.Cells["N4"].PutValue(worksheet.Cells[E]?.Value);
-                                worksheet.Cells["O4"].PutValue(parsed["l"]);
+                                worksheet.Cells["O4"].PutValue(parsed["o"]);
                                 workbook.CalculateFormula();
                                 break;
                             }
                         }
                         //workbook.Save(filePath);
                         returnValue.Message = "OK";
-                        returnValue.Input = $"Product: {parsed["k"]}; Square: {parsed["o"]}; Pcs: {parsed["l"]};";
+                        returnValue.Input = $"Product: {parsed["k"]}; Square: {parsed["l"]}; Pcs: {parsed["o"]};";
                         returnValue.SheetName = worksheet.Name;
+                        var k7 = worksheet.Cells["K7"]?.Value?.ToString();
+                        var k10 = worksheet.Cells["K10"]?.Value?.ToString();
+                        var m7 = worksheet.Cells["M7"]?.Value?.ToString();
+                        var m10 = worksheet.Cells["M10"]?.Value?.ToString();
                         returnValue.FramePrice = worksheet.Cells["K11"]?.Value?.ToString();
                     }
                     // _pp3
@@ -773,18 +777,6 @@ namespace PricingService
             json = json.Replace(@"\""", @"""");
             return json;
         }
-
-        private static string SanitizeReceivedJson(string uglyJson)
-        {
-            var sb = new StringBuilder(uglyJson);
-            sb.Replace("\\\t", "\t");
-            sb.Replace("\\\n", "\n");
-            sb.Replace("\\\r", "\r");
-            sb.Replace("\\", "");
-            sb.Replace("\"{", "{").Replace("}\"", "}");
-            return sb.ToString();
-        }
-
     }
 }
 
