@@ -8,3 +8,5 @@
 /bin/
 /obj/
 /.vs/
+/.vs/PricingService/v17/*.suo
+/.vs/PricingService/config/applicationhost.config

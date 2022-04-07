@@ -9,6 +9,11 @@ using System.Text;
 
 namespace PricingService
 {
+#pragma warning disable CS0219
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8603
+#pragma warning disable CS8604
     public static class ExcelCalculator
     {
 
@@ -314,7 +319,7 @@ namespace PricingService
 
                 if (!error)
                 {
-                    priceResponse.Message = "OK";                  
+                    priceResponse.Message = "OK";
 
 
                     priceResponse.SheetName = sheetName;
@@ -386,7 +391,7 @@ namespace PricingService
                     NullValueHandling = NullValueHandling.Ignore
                 });
 
-                
+
 
                 return json;
 
@@ -394,7 +399,7 @@ namespace PricingService
 
             catch (Exception ex)
             {
-                
+
                 priceResponse.Message = ex.Message;
 
                 string json = JsonConvert.SerializeObject(priceResponse, Formatting.Indented);
@@ -407,7 +412,7 @@ namespace PricingService
                 //Marshal.ReleaseComObject(wb);
                 //Marshal.ReleaseComObject(wbs);
                 //Marshal.ReleaseComObject(wSheet);
-                
+
 
                 return json;
             }
@@ -463,24 +468,23 @@ namespace PricingService
             return value;
         }
 
-
         public static string CalculatePrice(string request)
         {
             var returnValue = new Models.PriceResponse();
             returnValue.Message = "OK";
-            
+
             string folder = "", fileName = "", filePath = "", rootFolder = "";
             int rowData = 12;
             var parsed = System.Web.HttpUtility.ParseQueryString(request);
             folder = parsed["date"];
             //folder = "Excels";
-            rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
-            //rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
+            //rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
+            rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
             fileName = parsed["file"];
             if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
             {
-                filePath = Path.Combine(rootFolder + folder, fileName);
-                //filePath = Path.Combine(rootFolder, fileName);
+                //filePath = Path.Combine(rootFolder + folder, fileName);
+                filePath = Path.Combine(rootFolder, fileName);
             }
             Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
             string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U;
@@ -506,45 +510,45 @@ namespace PricingService
                                     //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
                                     //{
                                     int _i = 12;
-                                        A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
-                                        H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
-                                        O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        //{
-                                            rowData = _i;
-                                            var s = parsed["sheet"];
-                                            var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
-                                            item.Cells[B].PutValue(w);
-                                            var d12 = parsed["d"];
-                                            item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
+                                    A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
+                                    H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
+                                    O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
+                                    //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                    //{
+                                    rowData = _i;
+                                    var s = parsed["sheet"];
+                                    var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
+                                    item.Cells[B].PutValue(w);
+                                    var d12 = parsed["d"];
+                                    item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
 
-                                            var e12 = parsed["e"];
-                                            item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
+                                    var e12 = parsed["e"];
+                                    item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
 
-                                            var f12 = parsed["f"];
-                                            item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
+                                    var f12 = parsed["f"];
+                                    item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
 
-                                            var g12 = parsed["g"];
-                                            item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
+                                    var g12 = parsed["g"];
+                                    item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
 
-                                            var h12 = parsed["h"];
-                                            item.Cells[H].PutValue(Convert.ToDouble(parsed["h"]));
+                                    var h12 = parsed["h"];
+                                    item.Cells[H].PutValue(Convert.ToDouble(parsed["h"]));
 
-                                            var i12 = parsed["i"];
-                                            item.Cells[I].PutValue(parsed["i"]);
+                                    var i12 = parsed["i"];
+                                    item.Cells[I].PutValue(parsed["i"]);
 
-                                            var j12 = parsed["j"];
-                                            item.Cells[J].PutValue(parsed["j"]);
+                                    var j12 = parsed["j"];
+                                    item.Cells[J].PutValue(parsed["j"]);
 
-                                            var k12 = parsed["k"];
-                                            item.Cells[K].PutValue(parsed["k"]);
+                                    var k12 = parsed["k"];
+                                    item.Cells[K].PutValue(parsed["k"]);
 
-                                            var s12 = parsed["s"];
-                                            item.Cells[S].PutValue(parsed["s"]);
+                                    var s12 = parsed["s"];
+                                    item.Cells[S].PutValue(parsed["s"]);
 
-                                            workbook.CalculateFormula();
-                                            //break;
-                                        //}
+                                    workbook.CalculateFormula();
+                                    //break;
+                                    //}
                                     //}
                                     //workbook.Save(filePath);
                                     returnValue.Message = "OK";
@@ -565,38 +569,38 @@ namespace PricingService
                                     //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
                                     //{
                                     A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
-                                        H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
-                                        O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        //{
-                                            rowData = 12;
-                                            var s = parsed["sheet"];
-                                            var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
-                                            item.Cells[B].PutValue(w);
-                                            if (parsed["c"] == "circle")
-                                            {
-                                                item.Cells[C].PutValue("Tròn");
-                                            }
-                                            else if (parsed["c"] == "rectangle")
-                                            {
-                                                item.Cells[C].PutValue("Chữ nhật");
-                                            }
-                                            else
-                                            {
-                                                item.Cells[C].PutValue(parsed["c"]);
-                                            }
-                                            item.Cells[E].PutValue(Convert.ToDouble(parsed["d"]));
-                                            item.Cells[F].PutValue(Convert.ToDouble(parsed["e"]));
-                                            item.Cells[G].PutValue(Convert.ToDouble(parsed["f"]));
-                                            item.Cells[H].PutValue(Convert.ToDouble(parsed["g"]));
-                                            item.Cells[I].PutValue(Convert.ToDouble(parsed["h"]));
-                                            item.Cells[J].PutValue(parsed["i"]);
-                                            item.Cells[K].PutValue(parsed["j"]);
-                                            item.Cells[L].PutValue(parsed["k"]);
-                                            item.Cells[T].PutValue(parsed["s"]);
-                                            workbook.CalculateFormula();
-                                            //break;
-                                        //}
+                                    H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
+                                    O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
+                                    //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                    //{
+                                    rowData = 12;
+                                    var s = parsed["sheet"];
+                                    var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
+                                    item.Cells[B].PutValue(w);
+                                    if (parsed["c"] == "circle")
+                                    {
+                                        item.Cells[C].PutValue("Tròn");
+                                    }
+                                    else if (parsed["c"] == "rectangle")
+                                    {
+                                        item.Cells[C].PutValue("Chữ nhật");
+                                    }
+                                    else
+                                    {
+                                        item.Cells[C].PutValue(parsed["c"]);
+                                    }
+                                    item.Cells[E].PutValue(Convert.ToDouble(parsed["d"]));
+                                    item.Cells[F].PutValue(Convert.ToDouble(parsed["e"]));
+                                    item.Cells[G].PutValue(Convert.ToDouble(parsed["f"]));
+                                    item.Cells[H].PutValue(Convert.ToDouble(parsed["g"]));
+                                    item.Cells[I].PutValue(Convert.ToDouble(parsed["h"]));
+                                    item.Cells[J].PutValue(parsed["i"]);
+                                    item.Cells[K].PutValue(parsed["j"]);
+                                    item.Cells[L].PutValue(parsed["k"]);
+                                    item.Cells[T].PutValue(parsed["s"]);
+                                    workbook.CalculateFormula();
+                                    //break;
+                                    //}
                                     //}
 
                                     //workbook.Save(filePath);
@@ -616,26 +620,26 @@ namespace PricingService
                                     int _i = 12;
                                     //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
                                     //{
-                                        A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
-                                        H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
-                                        O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
-                                        //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
-                                        //{
-                                            rowData = 12;
-                                            var s = parsed["sheet"];
-                                            var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
-                                            item.Cells[B].PutValue(w);
-                                            item.Cells[C].PutValue(Convert.ToDouble(parsed["c"]));
-                                            item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
-                                            item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
-                                            item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
-                                            item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
-                                            item.Cells[H].PutValue(parsed["h"]);
-                                            item.Cells[N].PutValue(parsed["n"]);
-                                            item.Cells[I].PutValue(parsed["i"]);
-                                        workbook.CalculateFormula();
-                                            //break;
-                                        //}
+                                    A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
+                                    H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
+                                    O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
+                                    //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
+                                    //{
+                                    rowData = 12;
+                                    var s = parsed["sheet"];
+                                    var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
+                                    item.Cells[B].PutValue(w);
+                                    item.Cells[C].PutValue(Convert.ToDouble(parsed["c"]));
+                                    item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
+                                    item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
+                                    item.Cells[F].PutValue(Convert.ToDouble(parsed["f"]));
+                                    item.Cells[G].PutValue(Convert.ToDouble(parsed["g"]));
+                                    item.Cells[H].PutValue(parsed["h"]);
+                                    item.Cells[N].PutValue(parsed["n"]);
+                                    item.Cells[I].PutValue(parsed["i"]);
+                                    workbook.CalculateFormula();
+                                    //break;
+                                    //}
                                     //}
                                     //workbook.Save(filePath);
                                     returnValue.Message = "OK";
@@ -663,15 +667,17 @@ namespace PricingService
                             if (worksheet.Cells[A]?.Value?.ToString() == parsed["k"])
                             {
                                 worksheet.Cells["K4"].PutValue(parsed["k"]);
-                                worksheet.Cells["L4"].PutValue(parsed["l"]);
+                                var l = Convert.ToDouble(parsed["l"]);
+                                worksheet.Cells["L4"].PutValue(l);
                                 worksheet.Cells["M4"].PutValue(worksheet.Cells[C]?.Value);
                                 worksheet.Cells["N4"].PutValue(worksheet.Cells[E]?.Value);
-                                worksheet.Cells["O4"].PutValue(parsed["o"]);
+                                var o = Convert.ToDouble(parsed["o"]);
+                                worksheet.Cells["O4"].PutValue(o);
                                 workbook.CalculateFormula();
                                 break;
                             }
                         }
-                        //workbook.Save(filePath);
+                        workbook.Save(filePath);
                         returnValue.Message = "OK";
                         returnValue.Input = $"Product: {parsed["k"]}; Square: {parsed["l"]}; Pcs: {parsed["o"]};";
                         returnValue.SheetName = worksheet.Name;
@@ -762,7 +768,7 @@ namespace PricingService
             {
                 returnValue.Message = ex.Message;
             }
-            
+
 
             string json = JsonConvert.SerializeObject(returnValue, Formatting.None, new JsonSerializerSettings
             {
