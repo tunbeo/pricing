@@ -21,7 +21,9 @@ namespace PricingService
         {
             string rootPath = "C:\\inetpub\\wwwroot\\Pricing\\BangGia\\";
 
-            string path = Directory.GetCurrentDirectory() + "\\Excels\\_pp1_sale.xlsx";  //"C:\\inetpub\\wwwroot\\Pricing\\BangGia\\2021-12-21 10-07\\pp1_sale.xlsx";
+            string path = Directory.GetCurrentDirectory() + "\\Excels\\_pp1_sale.xlsx";
+            //string path=@"C:\\inetpub\\wwwroot\\Pricing\\BangGia\\2021-12-21 10-07\\pp1_sale.xlsx";
+
             //Application xlApp = null;// = new Application();
             SpreadsheetDocument document = null;
             Sheet sheet = null;
@@ -478,13 +480,13 @@ namespace PricingService
             var parsed = System.Web.HttpUtility.ParseQueryString(request);
             folder = parsed["date"];
             //folder = "Excels";
-            //rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
-            rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
+            rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
+            //rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
             fileName = parsed["file"];
             if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
             {
-                //filePath = Path.Combine(rootFolder + folder, fileName);
-                filePath = Path.Combine(rootFolder, fileName);
+                filePath = Path.Combine(rootFolder + folder, fileName);
+                //filePath = Path.Combine(rootFolder, fileName);
             }
             Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
             string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U;
@@ -713,9 +715,10 @@ namespace PricingService
                                 ws.Cells["O25"].PutValue(Convert.ToDouble(parsed["s"]));
                                 workbook.CalculateFormula();
                                 returnValue.DonGiaTheoTyGiaBanVietCombank = ws.Cells["O27"]?.Value.ToString();
+                                returnValue.SoKg = ws.Cells["O28"]?.Value.ToString();
                             }
                         }
-                        //workbook.Save(filePath);
+                        workbook.Save(filePath);
                         returnValue.Message = "OK";
                         returnValue.Input = $"LME Thoi diem: {parsed["l"]}; LME Trung binh thang: {parsed["m"]}; LME Trung binh tuan: {parsed["n"]}; SMM Thoi diem: {parsed["o"]}; SMM Trung binh thang: {parsed["p"]}; SMM Trung binh tuan: {parsed["q"]}; Ty gia mua VCB: {parsed["r"]}; Ty gia ban VCB: {parsed["s"]};";
                         returnValue.SheetName = parsed["sheet"];
@@ -783,6 +786,63 @@ namespace PricingService
             //string jsonString = json.Replace(@"\", " ");
             json = json.Replace(@"\""", @"""");
             return json;
+        }
+
+        public static string CalCulateMeci(string request)
+        {
+
+            var returnValue = new Models.PriceResponse();
+            returnValue.Message = "OK";
+
+            string folder = "", fileName = "", filePath = "", rootFolder = "";
+            int rowData = 12;
+            var parsed = System.Web.HttpUtility.ParseQueryString(request);
+            folder = parsed["date"];
+            //folder = "Excels";
+            rootFolder = "C:\\inetpub\\wwwroot\\pricing\\banggia\\";
+            //rootFolder = "D:\\Z\\Excel\\pricing\\Excels\\";
+            fileName = parsed["file"];
+            if (!string.IsNullOrEmpty(folder) && !string.IsNullOrEmpty(fileName))
+            {
+                filePath = Path.Combine(rootFolder + folder, fileName);
+                //filePath = Path.Combine(rootFolder, fileName);
+            }
+            Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
+            string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, AA, AB, AC, AD;
+            try
+            {
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.Text.CodePagesEncodingProvider.Instance.GetEncoding(437);
+                    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+                    workbook.Open(filePath);
+                    Aspose.Cells.Worksheet worksheet = null;
+                    // Phuong phap 1
+                    if (fileName.Contains("pp1"))
+                    {
+                        string sheetName = parsed["sheet"];
+                        foreach (Aspose.Cells.Worksheet item in workbook.Worksheets)
+                        {
+                            // Tim vao sheet
+                            if (item.Name.ToLower().Contains(sheetName.ToLower()))
+                            {
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                returnValue.Message = ex.Message;
+            }
+            string json = JsonConvert.SerializeObject(returnValue, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            return json;
+
         }
     }
 }
