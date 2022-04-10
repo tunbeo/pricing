@@ -6,6 +6,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text.RegularExpressions;
 using System.Text;
+//using Aspose.Cells;
 
 namespace PricingService
 {
@@ -262,6 +263,7 @@ namespace PricingService
 
                         else
                         {
+                            
                             var stt = char.ToUpper(char.Parse(key)) - 64;
 
                             var value = parsed[key];
@@ -791,8 +793,8 @@ namespace PricingService
         public static string CalCulateMeci(string request)
         {
 
-            var returnValue = new Models.PriceResponse();
-            returnValue.Message = "OK";
+            var meci = new Models.MeciReponse();
+            meci.Message = "OK";
 
             string folder = "", fileName = "", filePath = "", rootFolder = "";
             int rowData = 12;
@@ -808,7 +810,7 @@ namespace PricingService
                 //filePath = Path.Combine(rootFolder, fileName);
             }
             Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
-            string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, AA, AB, AC, AD;
+            //string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, AA, AB, AC, AD;
             try
             {
                 if (System.IO.File.Exists(filePath))
@@ -818,15 +820,59 @@ namespace PricingService
                     workbook.Open(filePath);
                     Aspose.Cells.Worksheet worksheet = null;
                     // Phuong phap 1
-                    if (fileName.Contains("pp1"))
+                    if (fileName.Contains("meci"))
                     {
                         string sheetName = parsed["sheet"];
-                        foreach (Aspose.Cells.Worksheet item in workbook.Worksheets)
+                        foreach (Aspose.Cells.Worksheet worksheet1 in workbook.Worksheets)
                         {
                             // Tim vao sheet
-                            if (item.Name.ToLower().Contains(sheetName.ToLower()))
+                            if (worksheet1.Name.ToLower().Contains(sheetName.ToLower()))
                             {
+                                meci.Message = "OK";
+
+                                foreach (string key in parsed)
+                                {
+                                    if (key == "date")
+                                    {
+                                        continue;
+                                    }
+                                    else if (key == "file")
+                                    {
+                                        continue;
+                                    }
+                                    else if (key == "sheet")
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        var value = parsed[key];
+                                        //var stt = char.ToUpper(char.Parse(key)) - 64;
+                                        try
+                                        {
+                                            worksheet1.Cells[key].PutValue(Convert.ToInt32(value));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            meci.Message = ex.Message;
+                                            continue;
+                                        }
+                                    }
+                                }
                                 
+                                workbook.CalculateFormula();
+                                //returnValue.Message = "OK";
+                                meci.Input = worksheet1.Cells["N3"].Value?.ToString();
+
+                                meci.GiaBan = worksheet1.Cells.ExportDataTable(4, 2, 7, 11, false);
+
+                                meci.VatTu = new Models.VatTuTieuHao();
+
+                                var column_has_null_value = 10;
+                                meci.VatTu.Nhom = Libs.ParceTable(worksheet1.Cells.ExportDataTable(16, 2, 13, 11, true), column_has_null_value);
+                                
+                                // Worksheet worksheet = workbook.Worksheets[0];
+
                             }
                         }
                     }
@@ -834,15 +880,18 @@ namespace PricingService
             }
             catch (Exception ex)
             {
-                returnValue.Message = ex.Message;
+                meci.Message = ex.Message;
             }
-            string json = JsonConvert.SerializeObject(returnValue, Formatting.None, new JsonSerializerSettings
+            string json = JsonConvert.SerializeObject(meci, Formatting.None, new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
 
             return json;
 
+            //http://localhost:54840/meci?date=2022-01-15&file=meci.xls&sheet=CT-Cuon&C3=2&D3=2&E3=2&F3=2&H3=2&J3=1000&K3=1000
+            //http://localhost:54840/meci?date=2022-01-15&file=meci.xls&sheet=CT-Cuon&C3=2&D3=2&E3=2&F3=2
+            //http://localhost:54840/meci?date=2022-01-15&file=meci.xls&sheet=CT-Cuon
         }
     }
 }

@@ -135,5 +135,27 @@ namespace PricingService
             }
             return sum;
         }
+
+        //xoa nhung row ko co thanh tien
+        public static DataTable ParceTable(DataTable dt, int column_has_null_value)
+        {
+            List<DataRow> RowsToDelete = new List<DataRow>();
+
+            for (int i=0;  i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dt.Rows[i];
+                //DataRow dr2= dt2.Rows[i];
+                if (dr[column_has_null_value].ToString() == "")
+                    RowsToDelete.Add(dr);
+            }
+            //dt2.AcceptChanges();
+            //return dt2;
+            foreach (var dr in RowsToDelete)
+            {
+                dt.Rows.Remove(dr);
+            }
+            dt.AcceptChanges();
+            return dt;
+        }
     }
 }
