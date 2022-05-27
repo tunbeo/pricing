@@ -27,8 +27,8 @@
         //vietstar
 
         // _ppt3
-        public string? DonGiaTheoTyGiaMuaVietCombank { get; set; }
-        public string? DonGiaTheoTyGiaBanVietCombank { get; set; }
+        //public string? DonGia { get; set; }
+        //public string? DonGiaTheoTyGiaBanVietCombank { get; set; }
 
         public string? Message { get; set; }
     }

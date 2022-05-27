@@ -615,8 +615,9 @@ namespace PricingService
                                     returnValue.SoKg = item.Cells["O" + rowData].Value.ToString();
                                     returnValue.HaoPhiMachCat = item.Cells["P" + rowData].Value.ToString();
                                     returnValue.PhiGiaCong = item.Cells["R" + rowData].Value.ToString();
-                                    returnValue.DonGia = item.Cells["U" + rowData].Value.ToString();
-                                    returnValue.DonGiaTheoTSLN = item.Cells["T" + rowData].Value.ToString();
+                                    returnValue.DonGia = item.Cells["S" + rowData].Value.ToString();
+                                    returnValue.DonGiaTheoTSLN = item.Cells["U" + rowData].Value.ToString();
+                                    //returnValue.DonGiaTheoTSLN = (Convert.ToDouble(returnValue.DonGia) + Convert.ToDouble(returnValue.DonGia) * Convert.ToDouble(parsed["s"])).ToString();
                                     returnValue.ThanhTienTheoTSLN = item.Cells["V" + rowData].Value.ToString();
                                 }
                                 else if (sheetName.ToLower().Contains("hàng cuộn"))
@@ -652,7 +653,8 @@ namespace PricingService
                                     returnValue.SheetName = sheetName;
                                     returnValue.SoKg = item.Cells["F" + rowData]?.Value?.ToString();
                                     returnValue.PhiGiaCong = item.Cells["L" + rowData]?.Value?.ToString();
-                                    returnValue.DonGia = item.Cells["O" + rowData]?.Value?.ToString();
+                                    returnValue.DonGia = item.Cells["M" + rowData]?.Value?.ToString();
+                                    returnValue.DonGiaTheoTSLN = item.Cells["O" + rowData]?.Value?.ToString();
                                     returnValue.ThanhTienTheoTSLN = item.Cells["P" + rowData]?.Value?.ToString();
                                 }
                                 break;
@@ -711,13 +713,13 @@ namespace PricingService
                                 ws.Cells["O24"].PutValue(Convert.ToDouble(parsed["l"]));
                                 ws.Cells["O25"].PutValue(Convert.ToDouble(parsed["r"]));
                                 workbook.CalculateFormula();
-                                returnValue.DonGiaTheoTyGiaMuaVietCombank = ws.Cells["O27"]?.Value.ToString();
+                                returnValue.DonGia = ws.Cells["O27"]?.Value.ToString();
                                 // Ti gia ban vcb
                                 ws.Cells["O24"].PutValue(Convert.ToDouble(parsed["l"]));
                                 ws.Cells["O25"].PutValue(Convert.ToDouble(parsed["s"]));
                                 workbook.CalculateFormula();
-                                returnValue.DonGiaTheoTyGiaBanVietCombank = ws.Cells["O27"]?.Value.ToString();
-                                returnValue.SoKg = ws.Cells["O28"]?.Value.ToString();
+                                //returnValue.DonGiaTheoTyGiaBanVietCombank = ws.Cells["O27"]?.Value.ToString();
+                                //returnValue.SoKg = ws.Cells["O28"]?.Value.ToString();
                             }
                         }
                         workbook.Save(filePath);
@@ -854,25 +856,48 @@ namespace PricingService
                                         }
                                         catch (Exception ex)
                                         {
-                                            meci.Message = ex.Message;
+                                            meci.Message += "[KEY:" + key +"]: " +  ex.Message;
                                             continue;
                                         }
                                     }
                                 }
-                                
-                                workbook.CalculateFormula();
-                                //returnValue.Message = "OK";
-                                meci.Input = worksheet1.Cells["N3"].Value?.ToString();
 
-                                meci.GiaBan = worksheet1.Cells.ExportDataTable(4, 2, 7, 11, false);
+                                try
+                                {
+                                    workbook.CalculateFormula();
+                                    //returnValue.Message = "OK";
+                                    meci.Input = worksheet1.Cells["N3"].Value?.ToString();
 
-                                meci.VatTu = new Models.VatTuTieuHao();
+                                    var column_has_null_value = 10;
+                                    var start_column = 2;
+                                    var end_column = 11;
 
-                                var column_has_null_value = 10;
-                                meci.VatTu.Nhom = Libs.ParceTable(worksheet1.Cells.ExportDataTable(16, 2, 13, 11, true), column_has_null_value);
-                                
-                                // Worksheet worksheet = workbook.Worksheets[0];
 
+                                    meci.GiaBan = worksheet1.Cells.ExportDataTable(4, start_column, 7, end_column, false);
+
+                                    meci.VatTu = new Models.VatTuTieuHao();                                    
+
+                                    meci.VatTu.Nhom = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(16, start_column, 13, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.Luoi = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(30, start_column, 2, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.ChiTietNhua = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(33, start_column, 33, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.Gioang = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(67, start_column, 11, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.LoXoVongBi = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(79, start_column, 4, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.DinhVitKeo = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(84, start_column, 7, end_column, true), column_has_null_value);
+
+                                    meci.VatTu.PhatSinh = Libs.ParceTable(worksheet1.Cells.ExportDataTableAsString(92, start_column, 9, end_column, true), column_has_null_value);
+
+                                    // Worksheet worksheet = workbook.Worksheets[0];
+                                }
+                                catch (Exception ex)
+                                {
+                                    meci.Message += "; " + ex.Message;
+                                    //continue;
+                                }
                             }
                         }
                     }
@@ -880,7 +905,8 @@ namespace PricingService
             }
             catch (Exception ex)
             {
-                meci.Message = ex.Message;
+                meci.Message += "; " + ex.Message;
+                
             }
             string json = JsonConvert.SerializeObject(meci, Formatting.None, new JsonSerializerSettings
             {
@@ -896,3 +922,4 @@ namespace PricingService
     }
 }
 
+//http://localhost:54840/pricing?date=2022-01-15&file=_pp1_sale.xlsx&sheet=thep_thanh&d=36500.0&e=20&f=300&g=900&h=1&s=0.1&i=0&c=circle
