@@ -530,6 +530,7 @@ namespace PricingService
                                     var a12 = parsed["a"];
                                     item.Cells[A].PutValue(parsed["a"]);
 
+
                                     var ac12 = parsed["ac"];
                                     item.Cells[AC].PutValue(parsed["ac"]);
 
@@ -602,9 +603,29 @@ namespace PricingService
                                     {
                                         item.Cells[C].PutValue("Tròn");
                                     }
-                                    else if (parsed["c"] == "rectangle")
+                                    else if (parsed["c"] == "rectagle")
                                     {
                                         item.Cells[C].PutValue("Chữ nhật");
+                                    }
+                                    else if (parsed["c"] == "cnvcv")
+                                    {
+                                        item.Cells[C].PutValue("Chữ nhật (vuông) cạnh vuông");
+                                    }
+                                    else if (parsed["c"] == "cnvct")
+                                    {
+                                        item.Cells[C].PutValue("Chữ nhật (vuông) cạnh tròn");
+                                    }
+                                    else if (parsed["c"] == "lg")
+                                    {
+                                        item.Cells[C].PutValue("Lục giác");
+                                    }
+                                    else if (parsed["c"] == "ot")
+                                    {
+                                        item.Cells[C].PutValue("Ống tròn");
+                                    }
+                                    else if (parsed["c"] == "ov")
+                                    {
+                                        item.Cells[C].PutValue("Ống vuông");
                                     }
                                     else
                                     {

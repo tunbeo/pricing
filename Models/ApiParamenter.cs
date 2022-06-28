@@ -82,8 +82,8 @@ namespace PricingService.Models
                 { "thep_tam_day", "Hàng tấm (thép ko gỉ)" },
                 { "thep_tam_la", "Hàng tấm (thép ko gỉ)" },
                 //Hàng tấm (bery)
-                { "dong_bery", "Hàng tấm (bery)" },
-                { "thep_dung_cu", "Hàng tấm (bery)" },
+                { "dong_bery", "Hàng tấm (bohler, bery)" },
+                { "thep_dung_cu", "Hàng tấm (bohler, bery)" },
                 //Hàng tấm (đồng nhôm)
                 { "dong_tam_la", "Hàng tấm (đồng nhôm)" },
                 { "dong_hop_kim_tam_day", "Hàng tấm (đồng nhôm)" },
