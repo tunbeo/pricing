@@ -17,6 +17,12 @@
         public string? DonGiaTheoTSLN { get; set; }
         public string? ThanhTienTheoTSLN { get; set; }
 
+        public string? PHAY { get; set; }
+        public string? MatPhay { get; set; }
+        public string? PhayStatus { get; set; }
+        public string? PhiPhay { get; set; }
+
+
         //pp2
         public string? FramePrice { get; set; }
 

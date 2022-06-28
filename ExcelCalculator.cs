@@ -491,7 +491,7 @@ namespace PricingService
                 //filePath = Path.Combine(rootFolder, fileName);
             }
             Aspose.Cells.Workbook workbook = new Aspose.Cells.Workbook();
-            string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U;
+            string A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, AC, AI; 
             try
             {
                 if (System.IO.File.Exists(filePath))
@@ -511,18 +511,28 @@ namespace PricingService
                             {
                                 if (sheetName.ToLower().Contains("hàng tấm"))
                                 {
+                                    //http://localhost:54840/pricing?date=2022-01-15&file=_pp1_sale2.xlsx&sheet=thep_tam_day&e=20&f=500&g=600&h=1&d=130000&s=0.17&a=PHAY4F
                                     //for (int _i = 11; _i < item.Cells.Rows.Count; _i++)
                                     //{
                                     int _i = 12;
                                     A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
                                     H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
                                     O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
+                                    AC = "AC" + _i; 
                                     //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
                                     //{
                                     rowData = _i;
                                     var s = parsed["sheet"];
+
                                     var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                     item.Cells[B].PutValue(w);
+
+                                    var a12 = parsed["a"];
+                                    item.Cells[A].PutValue(parsed["a"]);
+
+                                    var ac12 = parsed["ac"];
+                                    item.Cells[AC].PutValue(parsed["ac"]);
+
                                     var d12 = parsed["d"];
                                     item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
 
@@ -566,6 +576,11 @@ namespace PricingService
                                     returnValue.DonGia = item.Cells["R" + rowData].Value?.ToString();
                                     returnValue.DonGiaTheoTSLN = item.Cells["T" + rowData].Value?.ToString();
                                     returnValue.ThanhTienTheoTSLN = item.Cells["U" + rowData].Value?.ToString();
+
+                                    //PHAY
+                                    returnValue.PHAY = item.Cells["A" + rowData].Value?.ToString();
+                                    returnValue.PhayStatus = item.Cells["Y" + rowData].Value?.ToString();
+                                    returnValue.PhiPhay = item.Cells["AB" + rowData].Value?.ToString();
                                 }
                                 else if (sheetName.ToLower().Contains("hàng thanh"))
                                 {
@@ -575,8 +590,10 @@ namespace PricingService
                                     A = "A" + _i; B = "B" + _i; C = "C" + _i; D = "D" + _i; E = "E" + _i; F = "F" + _i; G = "G" + _i;
                                     H = "H" + _i; I = "I" + _i; J = "J" + _i; K = "K" + _i; L = "L" + _i; M = "M" + _i; N = "N" + _i;
                                     O = "O" + _i; P = "P" + _i; Q = "Q" + _i; R = "R" + _i; S = "S" + _i; T = "T" + _i; U = "U" + _i;
+                                    AI = "AI" + _i; 
                                     //if (string.IsNullOrEmpty(item.Cells[B]?.Value?.ToString()))
                                     //{
+
                                     rowData = 12;
                                     var s = parsed["sheet"];
                                     var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
@@ -602,6 +619,14 @@ namespace PricingService
                                     item.Cells[K].PutValue(parsed["j"]);
                                     item.Cells[L].PutValue(parsed["k"]);
                                     item.Cells[T].PutValue(parsed["s"]);
+
+                                    //PHAY
+                                    var a12 = parsed["a"];
+                                    item.Cells[A].PutValue(parsed["a"]);
+
+                                    var ai12 = parsed["ai"];
+                                    item.Cells[AI].PutValue(parsed["ai"]);
+
                                     workbook.CalculateFormula();
                                     //break;
                                     //}
@@ -619,6 +644,10 @@ namespace PricingService
                                     returnValue.DonGiaTheoTSLN = item.Cells["U" + rowData].Value.ToString();
                                     //returnValue.DonGiaTheoTSLN = (Convert.ToDouble(returnValue.DonGia) + Convert.ToDouble(returnValue.DonGia) * Convert.ToDouble(parsed["s"])).ToString();
                                     returnValue.ThanhTienTheoTSLN = item.Cells["V" + rowData].Value.ToString();
+
+                                    returnValue.PHAY = item.Cells["A" + rowData].Value?.ToString();
+                                    returnValue.PhayStatus = item.Cells["AE" + rowData].Value?.ToString();
+                                    returnValue.PhiPhay = item.Cells["AH" + rowData].Value?.ToString();
                                 }
                                 else if (sheetName.ToLower().Contains("hàng cuộn"))
                                 {
