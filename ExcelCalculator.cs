@@ -528,11 +528,13 @@ namespace PricingService
                                     item.Cells[B].PutValue(w);
 
                                     var a12 = parsed["a"];
-                                    item.Cells[A].PutValue(parsed["a"]);
+                                    if (a12 != null)
+                                        item.Cells[A].PutValue(parsed["a"]);
 
 
                                     var ac12 = parsed["ac"];
-                                    item.Cells[AC].PutValue(parsed["ac"]);
+                                    if (ac12 != null)
+                                        item.Cells[AC].PutValue(parsed["ac"]);
 
                                     var d12 = parsed["d"];
                                     item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
@@ -643,10 +645,12 @@ namespace PricingService
 
                                     //PHAY
                                     var a12 = parsed["a"];
-                                    item.Cells[A].PutValue(parsed["a"]);
+                                    if (a12 != null)
+                                        item.Cells[A].PutValue(parsed["a"]);
 
                                     var ai12 = parsed["ai"];
-                                    item.Cells[AI].PutValue(parsed["ai"]);
+                                    if (ai12 != null)
+                                        item.Cells[AI].PutValue(parsed["ai"]);
 
                                     workbook.CalculateFormula();
                                     //break;
@@ -684,6 +688,15 @@ namespace PricingService
                                     var s = parsed["sheet"];
                                     var w = Models.ApiParamenter.GetApiParamenterMaterial(s);
                                     item.Cells[B].PutValue(w);
+                                    var c12 = parsed["c"];
+                                    var d12 = parsed["d"];
+                                    var e12 = parsed["e"];
+                                    var f12 = parsed["f"];
+                                    var g12 = parsed["g"];
+                                    var h12 = parsed["h"];
+                                    var n12 = parsed["n"];
+                                    var i12 = parsed["i"];
+                                    
                                     item.Cells[C].PutValue(Convert.ToDouble(parsed["c"]));
                                     item.Cells[D].PutValue(Convert.ToDouble(parsed["d"]));
                                     item.Cells[E].PutValue(Convert.ToDouble(parsed["e"]));
